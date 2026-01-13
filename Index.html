@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Ly Rajaonesy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #1e293b);
+      color: white;
+      line-height: 1.6;
+    }
+    header {
+      background: #020617;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    header h1 {
+      color: #38bdf8;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      color: #38bdf8;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #38bdf8;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    #projects .card {
+      transition: transform 0.3s;
+    }
+  </style>
+</head>
+<body id="top">
+  <header>
+    <h1>Ly Rajaonesy</h1>
+    <p>Étudiant en Administration Système et Réseau – Portfolio</p>
+  </header>
+
+  <!-- À propos -->
+  <section>
+    <h2>À propos de moi</h2>
+    <div class="card">
+      <p>
+        Étudiant en Administration Système et Réseau, passionné par l’infrastructure informatique,
+        les réseaux IP, Linux et la cybersécurité. Je recherche un <strong>stage en alternance</strong>
+        pour développer mes compétences pratiques.
+      </p>
+    </div>
+  </section>
+
+  <!-- Compétences -->
+  <section>
+    <h2>🛠️ Compétences</h2>
+    <div class="card">
+      <ul>
+        <li>Administration Linux (utilisateurs, permissions, services)</li>
+        <li>Réseaux IP (adressage, routage, VLAN, DNS, DHCP)</li>
+        <li>Active Directory (utilisateurs, groupes, GPO – notions)</li>
+        <li>Virtualisation (VirtualBox, VMware – bases)</li>
+        <li>Simulation réseau avec GNS3</li>
+        <li>Scripting Bash (bases)</li>
+        <li>Notions en cybersécurité</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section>
+    <h2>📄 Mon CV</h2>
+    <div class="card">
+      <p>Téléchargez mon CV pour en savoir plus :</p>
+      <a href="CV_LyRajaonesy.pdf" target="_blank" style="
+        display: inline-block;
+        padding: 10px 15px;
+        background: #38bdf8;
+        color: black;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+      ">Télécharger le CV</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <h2>📞 Contact</h2>
+    <div class="card">
+      <p>Email : <a href="mailto:tonemail@email.com">tonemail@email.com</a></p>
+      <p>GitHub : <a href="https://github.com/lyrajaonesy" target="_blank">github.com/lyrajaonesy</a></p>
+    </div>
+  </section>
+
+  <!-- Projets -->
+  <section>
+    <h2>💻 Projets GitHub</h2>
+    <div id="projects"></div>
+  </section>
+
+  <!-- Bouton retour haut -->
+  <a href="#top" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #38bdf8;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  ">↑ Haut</a>
+
+  <script>
+    // Affichage dynamique des projets GitHub
+    fetch("https://api.github.com/users/lyrajaonesy/repos")
+      .then(response => response.json())
+      .then(repos => {
+        const container = document.getElementById("projects");
+        container.innerHTML = "";
+        repos.forEach(repo => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+            <h3>${repo.name}</h3>
+            <p>${repo.description || "Aucune description"}</p>
+            <p>🌐 <a href="${repo.html_url}" target="_blank">Voir sur GitHub</a></p>
+            <p>💻 Langage : ${repo.language || "Non défini"}</p>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>
