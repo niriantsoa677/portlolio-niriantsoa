@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio Ly Rajaonesy</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        h1, h2 { color: #2c3e50; }
+        a { text-decoration: none; color: #2980b9; }
+        a:hover { text-decoration: underline; }
+        .projects { margin-top: 20px; }
+        .project { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Ly Rajaonesy - Portfolio</h1>
+    <p>Cliquez pour télécharger mon CV :</p>
+    <a href="./CV_LyRajaonesy.pdf" target="_blank" rel="noopener">Télécharger le CV</a>
+
+    <h2>Mes projets GitHub</h2>
+    <div id="projects" class="projects"></div>
+
+    <script>
+        // Remplacez ici par ton nom d'utilisateur GitHub
+        const githubUsername = 'niriantsoa677';
+
+        fetch(`https://api.github.com/users/${githubUsername}/repos`)
+        .then(response => response.json())
+        .then(repos => {
+            const projectsDiv = document.getElementById('projects');
+            repos.forEach(repo => {
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'project';
+                projectDiv.innerHTML = `
+                    <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                    <p>${repo.description || 'Pas de description'}</p>
+                `;
+                projectsDiv.appendChild(projectDiv);
+            });
+        })
+        .catch(error => {
+            document.getElementById('projects').innerText = 'Impossible de charger les projets GitHub.';
+            console.error(error);
+        });
+    </script>
+</body>
+</html>
